@@ -6700,6 +6700,210 @@ header.QuHeader .dropdown-content {top:0}
 
     }
 
+    /* Chart scroll containers for mobile responsiveness */
+    .chart-scroll-wrapper {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        -webkit-overflow-scrolling: touch;
+        position: relative;
+    }
+
+    .chart-scroll-wrapper::-webkit-scrollbar {
+        height: 8px;
+    }
+
+    .chart-scroll-wrapper::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+    }
+
+    .chart-scroll-wrapper::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 4px;
+    }
+
+    .chart-scroll-wrapper::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Override overflow: hidden on child containers */
+    .chart-scroll-wrapper .qai-overflow-hidden {
+        overflow: visible !important;
+    }
+
+    .chart-scroll-wrapper > div {
+        overflow: visible !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .chart-scroll-wrapper > div > div[style*="overflow: hidden"] {
+        overflow: visible !important;
+    }
+
+    /* Ensure content inside scroll wrapper can scroll */
+    .chart-scroll-wrapper .geoChartContainer {
+        min-width: 800px;
+        width: 800px !important;
+        max-width: 800px !important;
+    }
+
+    @media (min-width: 768px) {
+        .chart-scroll-wrapper {
+            overflow-x: visible !important;
+        }
+        
+        .chart-scroll-wrapper .geoChartContainer {
+            min-width: auto;
+        }
+    }
+
+    @media (max-width: 767px) {
+        .chart-scroll-wrapper {
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+        
+        .chart-scroll-wrapper > div {
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+        
+        .chart-scroll-wrapper .geoChartContainer {
+            min-width: 800px !important;
+            width: 800px !important;
+            max-width: 800px !important;
+        }
+        
+        .chart-scroll-wrapper svg {
+            width: 800px !important;
+            min-width: 800px !important;
+            max-width: 800px !important;
+        }
+    }
+
+    /* Geography Legend and Map Spacing */
+    .geography-legend-container {
+        width: 100%;
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+        z-index: 10;
+        position: relative;
+    }
+
+    .geography-legend-container .minor-card {
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    .geography-map-wrapper {
+        width: 100%;
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+        position: relative;
+        z-index: 1;
+        clear: both;
+    }
+
+    /* Ensure consistent spacing between legend and map */
+    .chart-scroll-wrapper > div[style*="flex-direction: column"] {
+        gap: 1rem !important;
+    }
+
+    .chart-scroll-wrapper > div[style*="flex-direction: column"] > div:first-child {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .chart-scroll-wrapper > div[style*="flex-direction: column"] > div:last-child {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    /* Fix for Cyber Incident Trend section - prevent chart and legend overlap */
+    .trend-chart-parent {
+        overflow: hidden;
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    .trend-chart-parent .recharts-wrapper {
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+
+    .trend-chart-parent .recharts-surface {
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+
+    @media (min-width: 1024px) {
+        .qai-grid-cols-12 .trend-chart-parent {
+            padding-right: 1.5rem;
+        }
+        
+        .qai-grid-cols-12 > div[class*="qai-col-span-3"] {
+            padding-left: 0.5rem;
+            min-width: 0;
+        }
+    }
+
+    @media (max-width: 1023px) {
+        .trend-chart-parent {
+            margin-bottom: 1rem;
+        }
+    }
+
+    /* Cyber Incident Trend - Incident Type Legend Positioning */
+    /* The grid naturally places chart (9 cols = 75%) on left and legend (3 cols = 25%) on right on large screens */
+    /* On large screens (≥1024px) - legend on right side */
+    /* Desktop: Side-by-side 75% chart, 25% legend */
+    @media (min-width: 1024px) {
+        /* Force 12-column grid layout for the Cyber Incident Trend section */
+        .cyber-incident-trend-grid {
+            display: grid !important;
+            grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
+            gap: 1rem !important;
+        }
+        
+        .cyber-incident-trend-grid .trend-chart-parent {
+            grid-column: span 9 / span 9 !important;
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+        
+        .cyber-incident-trend-grid .incident-type-legend-container {
+            grid-column: span 3 / span 3 !important;
+            display: flex !important;
+            flex-direction: column;
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+    }
+
+    /* On mobile screens (<1024px) - legend below chart (stacked) */
+    @media (max-width: 1023px) {
+        .qai-grid-cols-12 {
+            grid-template-columns: 1fr !important;
+        }
+        
+        .qai-grid-cols-12 .trend-chart-parent {
+            grid-column: span 1 / span 1 !important;
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+        
+        .qai-grid-cols-12 .incident-type-legend-container {
+            grid-column: span 1 / span 1 !important;
+            width: 100%;
+            margin-top: 0;
+        }
+    }
+
     /* Footer */
     .footerQtc {
         color: #fff;
@@ -7233,8 +7437,8 @@ header.QuHeader.fixed {
               <div class="qai-w-full xl:qai-w-1/2">
                 <div class="qai-w-full qai-flexcol qai-gap-2 qai-h-full">
                   <div class="qai-flex qai-flex-col qai-gap-2">
-                    <div class="qai-flex qai-justify-between qai-items-center">
-                      <div class="qai-flex-1">
+                    <div class="qai-flex qai-flex-col md:qai-flex-row qai-justify-between md:qai-items-center qai-items-start qai-w-full qai-gap-3 md:qai-gap-0">
+                      <div class="qai-flex-shrink-0">
                         <div class="qai-flex qai-items-center qai-gap-2 qai-text-lg md:qai-text-xl">
                           <div class="qai-flex qai-items-center qai-gap-2"><span class="qai-align-middle gradient-text">Industry Losses by Incident Type</span></div>
                         </div>
@@ -7261,14 +7465,15 @@ header.QuHeader.fixed {
                         <div class="qai-w-full qai-flex qai-justify-center qai-grow">
                           <div class="jsx-8c7d286568fed9c8 qai-flex qai-flex-col md:qai-flex-row qai-flex-wrap qai-items-center qai-justify-center qai-w-full qai-relative">
                             <div class="jsx-8c7d286568fed9c8 qai-w-full md:qai-w-2/3 qai-chart-container">
-                              <svg width="580" height="580" class="jsx-8c7d286568fed9c8">
+                              <svg viewBox="0 0 580 580" class="jsx-8c7d286568fed9c8 qai-w-full qai-h-auto qai-max-w-[580px]">
                                 <defs>
                                   <linearGradient id="radial-bars-green" x1="0" y1="0" x2="0" y2="1">
                                     <stop offset="0%" stop-color="#42E695" stop-opacity="1"></stop>
                                     <stop offset="100%" stop-color="#3BB2B8" stop-opacity="1"></stop>
                                   </linearGradient>
                                 </defs>
-                                <rect width="580" height="580" fill="transparent" rx="14" class="jsx-8c7d286568fed9c8"></rect>
+                                <rect width="580" height="580" fill="transparent" rx="14" class="jsx-8c7d286568fed9c8">
+                                </rect>
                                 <g class="visx-group" transform="translate(290, 290)">
                                   <path
                                     class="visx-arc"
@@ -7316,12 +7521,16 @@ header.QuHeader.fixed {
                             <div class="jsx-8c7d286568fed9c8 qai-w-full md:qai-w-1/3 qai-mt-4 md:qai-mt-0">
                               <div class="minor-card qai-p-4 qai-w-full">
                                 <div style="display: flex; align-items: center; margin-bottom: 4px">
-                                  <div style="width: 12px; height: 12px; background-color: rgb(181, 23, 158); margin-right: 8px; border-radius: 12px"></div>
-                                  <div>Malicious Data Breach</div>
+                                  <div
+                                    style="width: 12px; height: 12px; background-color: rgb(72, 149, 239); margin-right: 8px; border-radius: 12px">
+                                  </div>
+                                  <div>Network or Website Outage</div>
                                 </div>
                                 <div style="display: flex; align-items: center; margin-bottom: 4px">
-                                  <div style="width: 12px; height: 12px; background-color: rgb(72, 149, 239); margin-right: 8px; border-radius: 12px"></div>
-                                  <div>Network or Website Outage</div>
+                                  <div
+                                    style="width: 12px; height: 12px; background-color: rgb(181, 23, 158); margin-right: 8px; border-radius: 12px">
+                                  </div>
+                                  <div>Malicious Data Breach</div>
                                 </div>
                               </div>
                             </div>
@@ -7446,11 +7655,11 @@ header.QuHeader.fixed {
               </div>
             </div>
           </div>
-          <div class="qai-grid qai-grid-cols-2 qai-gap-4">
-            <div class="qai-w-full qai-flexcol qai-gap-2 qai-h-full">
+          <div class="qai-grid qai-grid-cols-1 lg:qai-grid-cols-2 qai-gap-4" style="width: 100%; max-width: 100%; overflow: hidden;">
+            <div class="qai-w-full qai-flexcol qai-gap-2 qai-h-full" style="width: 100%; max-width: 100%; overflow: hidden;">
               <div class="qai-flex qai-flex-col qai-gap-2">
-                <div class="qai-flex qai-justify-between qai-items-center">
-                  <div class="qai-flex-1">
+                <div class="qai-flex qai-flex-col md:qai-flex-row qai-justify-between md:qai-items-center qai-items-start qai-w-full qai-gap-3 md:qai-gap-0">
+                  <div class="qai-flex-shrink-0">
                     <div class="qai-flex qai-items-center qai-gap-2 qai-text-lg md:qai-text-xl">
                       <div class="qai-flex qai-items-center qai-gap-2"><span class="qai-align-middle gradient-text">Industry Losses by Geography</span></div>
                     </div>
@@ -7470,15 +7679,17 @@ header.QuHeader.fixed {
                   </div>
                 </div>
               </div>
-              <div class="qai-p-[1px] qai-rounded-2xl qai-flex qai-grow qai-w-full" style="background-image: var(--card-b-gradient)">
-                <div class="qai-rounded-lg qai-flex qai-grow minor-card-gradient-2">
-                  <div class="qai-w-full qai-flexcol qai-p-4">
-                    <p>This visualization shows geographical distribution of financial impact by loss amount or incident count.</p>
-                    <div class="qai-w-full qai-flex qai-justify-center">
-                      <div class="qai-w-full sm:qai-w-4/5 md:qai-w-3/4 lg:qai-w-4/5 xl:qai-w-full qai-overflow-hidden">
-                        <div class="qai-flex qai-flex-col qai-gap-4">
-                          <div class="qai-flex qai-w-full qai-items-center qai-justify-end">
-                            <div class="minor-card qai-p-4 qai-flex qai-gap-4">
+              <div class="qai-p-[1px] qai-rounded-2xl qai-flex qai-grow qai-w-full"
+                style="background-image: var(--card-b-gradient); width: 100%; max-width: 100%; overflow: hidden;">
+                <div class="qai-rounded-lg qai-flex qai-grow minor-card-gradient-2" style="width: 100%; max-width: 100%; overflow: hidden;">
+                  <div class="qai-w-full qai-flexcol qai-p-4" style="width: 100%; max-width: 100%; overflow: hidden;">
+                    <p class="qai-mb-4">This visualization shows geographical distribution of financial impact by loss amount or incident
+                      count.</p>
+                    <div class="qai-flex qai-flex-col qai-gap-4" style="width: 100%; max-width: 100%; overflow: hidden;">
+                      <div class="chart-scroll-wrapper" style="width: 100%; max-width: 100%;">
+                        <div style="min-width: 800px; width: max-content; display: flex; flex-direction: column; gap: 1rem;">
+                          <div class="qai-flex qai-w-full qai-items-center qai-justify-end geography-legend-container">
+                            <div class="minor-card qai-p-4 qai-flex qai-gap-4" style="flex-shrink: 0;">
                               <div class="qai-flex qai-flex-col qai-items-center qai-mb-2">
                                 <div style="width: 12px; height: 12px; background-color: rgb(104, 169, 127); margin-right: 8px; border-radius: 12px"></div>
                                 <div>Low</div>
@@ -7506,13 +7717,20 @@ header.QuHeader.fixed {
                               </div>
                             </div>
                           </div>
-                          <div class="qai-rounded-lg qai-p-4 qai-overflow-hidden qai-shadow-lg qai-h-auto qai-sm:qai-h-[500px] qai-w-full" style="opacity: 1; transform: none">
-                            <div class="qai-h-[300px] sm:qai-h-[400px]">
-                              <div class="geoChartContainer">
-                                <svg viewBox="0 0 800 600" class="rsm-svg geoMap" data-tooltip-id="geography-tooltip">
+                      <div class="qai-rounded-lg qai-p-4 qai-shadow-lg qai-h-auto qai-sm:qai-h-[500px] geography-map-wrapper" style="overflow: visible; width: 100%; max-width: 100%;">
+                        <div class="qai-h-[300px] sm:qai-h-[400px] lg:qai-h-[500px]" style="position: relative; overflow: visible; width: 100%; max-width: 100%;">
+                          <div class="geoChartContainer" style="width: 800px; max-width: 800px; height: 100%; display: flex; justify-content: center; align-items: center;">
+                            <svg viewBox="0 0 800 600"
+                              data-tooltip-id="geography-tooltip"
+                              width="800"
+                              height="600"
+                              preserveAspectRatio="xMidYMid meet"
+                              class="rsm-svg geoMap" 
+                              style="display: block; width: 800px; max-width: 800px; height: auto; flex-shrink: 0;">
                                   <g style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0)">
                                     <rect width="800" height="600" fill="transparent"></rect>
-                                    <g transform="translate(49.310560873674035 -53.54038524861903) scale(1)" class="rsm-zoomable-group undefined">
+                                    <g
+                                      class="rsm-zoomable-group undefined">
                                       <g class="rsm-geographies">
                                         <path
                                           tabindex="0"
@@ -9131,20 +9349,22 @@ header.QuHeader.fixed {
             </div>
             <div class="qai-w-full qai-flexcol qai-gap-2 qai-h-full">
               <div class="qai-flex qai-flex-col qai-gap-2">
-                <div class="qai-flex qai-justify-between qai-items-center">
-                  <div class="qai-flex-1">
+                <div class="qai-flex qai-flex-col md:qai-flex-row qai-justify-between md:qai-items-center qai-items-start qai-w-full qai-gap-3 md:qai-gap-0">
+                  <div class="qai-flex-shrink-0">
                     <div class="qai-flex qai-items-center qai-gap-2 qai-text-lg md:qai-text-xl">
                       <div class="qai-flex qai-items-center qai-gap-2"><span class="qai-align-middle gradient-text">Cyber Incident Trend</span></div>
                     </div>
                   </div>
                   <div class="qai-flex-shrink-0">
-                    <div class="qai-flex qai-gap-2 qai-items-center qai-text-sm">
-                      View By:
-                      <div class="qai-p-[1px] qai-rounded-lg" style="background-image: var(--btn-border-gradient)">
-                        <button class="qai-btn qai-w-full qai-btn-primary-sm qai-rounded-lg"><span class="qai-flex-center qai-gap-2">Total Loss Amount</span></button>
-                      </div>
-                      <div class="qai-p-[1px] qai-rounded-lg" style="background-image: var(--btn-border-gradient)">
-                        <button class="qai-btn qai-w-full qai-btn-secondary-sm qai-rounded-lg"><span class="qai-flex-center qai-gap-2">Total Instances</span></button>
+                    <div class="qai-flex qai-flex-row qai-gap-2 qai-items-center qai-flex-wrap">
+                      <span class="qai-whitespace-nowrap qai-text-sm">View By:</span>
+                      <div class="qai-flex qai-flex-row qai-gap-2">
+                        <div class="qai-p-[1px] qai-rounded-lg" style="background-image: var(--btn-border-gradient)">
+                          <button class="qai-btn qai-w-full qai-btn-primary-sm qai-rounded-lg"><span class="qai-flex-center qai-gap-2">Total Loss Amount</span></button>
+                        </div>
+                        <div class="qai-p-[1px] qai-rounded-lg" style="background-image: var(--btn-border-gradient)">
+                          <button class="qai-btn qai-w-full qai-btn-secondary-sm qai-rounded-lg"><span class="qai-flex-center qai-gap-2">Total Instances</span></button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -9152,8 +9372,8 @@ header.QuHeader.fixed {
               </div>
               <div class="qai-p-[1px] qai-rounded-2xl qai-flex qai-grow qai-w-full" style="background-image: var(--card-b-gradient)">
                 <div class="qai-rounded-lg qai-flex qai-grow minor-card-gradient-2">
-                  <div class="qai-grid qai-grid-cols-1 lg:qai-grid-cols-8 qai-gap-4 qai-p-4 qai-w-full">
-                    <div class="qai-col-span-6 trend-chart-parent">
+                  <div class="qai-grid qai-grid-cols-1 lg:qai-grid-cols-12 cyber-incident-trend-grid qai-gap-4 qai-p-4 qai-w-full">
+                    <div class="qai-col-span-9 trend-chart-parent">
                       <p>This visualization shows the trend of total loss amount and the number of incidents by cyber loss types.</p>
                       <div class="qai-rounded-lg qai-p-4 qai-overflow-hidden qai-shadow-lg qai-h-auto qai-sm:qai-h-[500px] qai-w-full" style="opacity: 1; transform: none">
                         <div class=" " style="height: 500px">
@@ -9655,7 +9875,7 @@ header.QuHeader.fixed {
                         </div>
                       </div>
                     </div>
-                    <div class="qai-col-span-2 qai-flex qai-flex-col qai-gap-4">
+                    <div class="qai-col-span-3 incident-type-legend-container qai-flex qai-flex-col qai-gap-4">
                       <div class="qai-flex qai-justify-end">
                         <div class="qai-p-[1px] qai-rounded-lg" style="background-image: var(--btn-border-gradient)">
                           <button class="qai-btn qai-w-full qai-btn-secondary-sm qai-rounded-lg"><span class="qai-flex-center qai-gap-2">Reset</span></button>
@@ -10022,23 +10242,21 @@ header.QuHeader.fixed {
                     </div>
                   </div>
                   <div class="qai-w-full qai-flexcol qai-gap-2 qai-h-full qai-flex-1">
-                    <div class="qai-grid qai-grid-cols-2 qai-gap-4">
-                      <div class="qai-w-full qai-flexcol qai-gap-2 qai-h-full">
-                        <div class="qai-flex qai-flex-col qai-gap-2">
-                          <div class="qai-flex qai-justify-between qai-items-center">
-                            <div class="qai-flex-1">
-                              <div class="qai-flex qai-items-center qai-gap-2 qai-text-lg md:qai-text-xl">
-                                <div class="qai-flex qai-items-center qai-gap-2"><span class="qai-align-middle gradient-text">Financial Loss by Record Type</span></div>
-                              </div>
-                            </div>
+                    <div class="qai-flex qai-flex-col qai-gap-2">
+                      <div class="qai-flex qai-justify-between qai-items-center">
+                        <div class="qai-flex-1">
+                          <div class="qai-flex qai-items-center qai-gap-2 qai-text-lg md:qai-text-xl">
+                            <div class="qai-flex qai-items-center qai-gap-2"><span class="qai-align-middle gradient-text">Financial Loss by Record Type</span></div>
                           </div>
                         </div>
-                        <div class="qai-p-[1px] qai-rounded-2xl qai-flex qai-grow qai-w-full" style="background-image: var(--card-b-gradient)">
-                          <div class="qai-rounded-lg qai-flex qai-grow minor-card-gradient-2">
-                            <div class="qai-flex qai-flex-col qai-gap-2 qai-w-full qai-p-4">
-                              <p>Total Loss amounts grouped by record type.</p>
-                              <div class="qai-flex-center">
-                                <div class="qai-grid qai-grid-cols-1 qai-w-full lg:qai-w-[600px] qai-h-[450px]">
+                      </div>
+                    </div>
+                    <div class="qai-p-[1px] qai-rounded-2xl qai-flex qai-grow qai-w-full" style="background-image: var(--card-b-gradient)">
+                      <div class="qai-rounded-lg qai-flex qai-grow minor-card-gradient-2">
+                        <div class="qai-flex qai-flex-col qai-gap-2 qai-w-full qai-p-4">
+                          <p>Total Loss amounts grouped by record type.</p>
+                          <div class="qai-flex-center">
+                            <div class="qai-grid qai-grid-cols-1 qai-w-full lg:qai-w-[600px] qai-h-[450px]">
                                   <div class="js-plotly-plot" style="width: 100%; max-width: 100%; height: 100%">
                                     <div class="plot-container plotly" style="width: 100%; height: 100%">
                                       <div class="user-select-none svg-container" style="position: relative; width: 100%; height: 450px;"><svg class="main-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="600" height="450" style="background: transparent;">
@@ -10156,143 +10374,143 @@ header.QuHeader.fixed {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-          <div class="qai-w-full qai-flexcol qai-gap-2 qai-h-full">
-            <div class="qai-flex qai-flex-col qai-gap-2">
-              <div class="qai-flex qai-justify-between qai-items-center">
-                <div class="qai-flex-1">
-                  <div class="qai-flex qai-items-center qai-gap-2 qai-text-lg md:qai-text-xl">
-                    <div class="qai-flex qai-items-center qai-gap-2"><span class="qai-align-middle gradient-text">Overview of Data Loss Across Critical Business Assets</span></div>
+              <div class="qai-w-full qai-flexcol qai-gap-2 qai-h-full">
+                <div class="qai-flex qai-flex-col qai-gap-2">
+                  <div class="qai-flex qai-justify-between qai-items-center">
+                    <div class="qai-flex-1">
+                      <div class="qai-flex qai-items-center qai-gap-2 qai-text-lg md:qai-text-xl">
+                        <div class="qai-flex qai-items-center qai-gap-2"><span class="qai-align-middle gradient-text">Overview of Data Loss Across Critical Business Assets</span></div>
+                      </div>
+                      <p class="qai-mt-1 qai-mb-0">Below visualization displays intersection between Business Assets and Impact of cyber incidents, in terms of number of sensitive records effected.</p>
+                    </div>
                   </div>
-                  <p class="qai-mt-1 qai-mb-0">Below visualization displays intersection between Business Assets and Impact of cyber incidents, in terms of number of sensitive records effected.</p>
                 </div>
-              </div>
-            </div>
-            <div class="qai-p-[1px] qai-rounded-2xl qai-flex qai-grow qai-w-full" style="background-image: var(--card-b-gradient)">
-              <div class="qai-rounded-lg qai-flex qai-grow minor-card-gradient-2">
-                <div class="qai-grid qai-grid-cols-1 qai-p-4 qai-w-full">
-                  <div class="qai-grid qai-grid-col-1 qai-relative">
-                    <div class="qai-flex qai-w-full qai-items-center qai-justify-end">
-                      <div class="minor-card qai-p-4 qai-flex qai-gap-4">
-                        <div class="qai-flex qai-flex-col qai-items-center qai-mb-2">
-                          <div style="width: 12px; height: 12px; background-color: rgb(104, 169, 127); margin-right: 8px; border-radius: 12px"></div>
-                          <div>Low</div>
-                          <div class="qai-text-sm">(0-10)</div>
+                <div class="qai-p-[1px] qai-rounded-2xl qai-flex qai-grow qai-w-full" style="background-image: var(--card-b-gradient)">
+                  <div class="qai-rounded-lg qai-flex qai-grow minor-card-gradient-2">
+                    <div class="qai-grid qai-grid-cols-1 qai-p-4 qai-w-full">
+                      <div class="qai-grid qai-grid-col-1 qai-relative">
+                        <div class="qai-flex qai-w-full qai-items-center qai-justify-end">
+                          <div class="minor-card qai-p-4 qai-flex qai-gap-4">
+                            <div class="qai-flex qai-flex-col qai-items-center qai-mb-2">
+                              <div style="width: 12px; height: 12px; background-color: rgb(104, 169, 127); margin-right: 8px; border-radius: 12px"></div>
+                              <div>Low</div>
+                              <div class="qai-text-sm">(0-10)</div>
+                            </div>
+                            <div class="qai-flex qai-flex-col qai-items-center qai-mb-2">
+                              <div style="width: 12px; height: 12px; background-color: rgb(245, 226, 110); margin-right: 8px; border-radius: 12px"></div>
+                              <div>Moderate</div>
+                              <div class="qai-text-sm">(10-50)</div>
+                            </div>
+                            <div class="qai-flex qai-flex-col qai-items-center qai-mb-2">
+                              <div style="width: 12px; height: 12px; background-color: rgb(255, 175, 115); margin-right: 8px; border-radius: 12px"></div>
+                              <div>High</div>
+                              <div class="qai-text-sm">(50-100)</div>
+                            </div>
+                            <div class="qai-flex qai-flex-col qai-items-center qai-mb-2">
+                              <div style="width: 12px; height: 12px; background-color: rgb(226, 128, 54); margin-right: 8px; border-radius: 12px"></div>
+                              <div>Very High</div>
+                              <div class="qai-text-sm">(100-500)</div>
+                            </div>
+                            <div class="qai-flex qai-flex-col qai-items-center qai-mb-2">
+                              <div style="width: 12px; height: 12px; background-color: rgb(227, 72, 68); margin-right: 8px; border-radius: 12px"></div>
+                              <div>Extreme</div>
+                              <div class="qai-text-sm">(500+)</div>
+                            </div>
+                          </div>
                         </div>
-                        <div class="qai-flex qai-flex-col qai-items-center qai-mb-2">
-                          <div style="width: 12px; height: 12px; background-color: rgb(245, 226, 110); margin-right: 8px; border-radius: 12px"></div>
-                          <div>Moderate</div>
-                          <div class="qai-text-sm">(10-50)</div>
-                        </div>
-                        <div class="qai-flex qai-flex-col qai-items-center qai-mb-2">
-                          <div style="width: 12px; height: 12px; background-color: rgb(255, 175, 115); margin-right: 8px; border-radius: 12px"></div>
-                          <div>High</div>
-                          <div class="qai-text-sm">(50-100)</div>
-                        </div>
-                        <div class="qai-flex qai-flex-col qai-items-center qai-mb-2">
-                          <div style="width: 12px; height: 12px; background-color: rgb(226, 128, 54); margin-right: 8px; border-radius: 12px"></div>
-                          <div>Very High</div>
-                          <div class="qai-text-sm">(100-500)</div>
-                        </div>
-                        <div class="qai-flex qai-flex-col qai-items-center qai-mb-2">
-                          <div style="width: 12px; height: 12px; background-color: rgb(227, 72, 68); margin-right: 8px; border-radius: 12px"></div>
-                          <div>Extreme</div>
-                          <div class="qai-text-sm">(500+)</div>
+                        <div class="qai-overflow-auto">
+                          <svg width="1720" height="700">
+                            <g class="visx-group" transform="translate(0, 0)">
+                              <g class="visx-group visx-rows" transform="translate(70, 0)">
+                                <line
+                                  class="visx-line"
+                                  x1="0"
+                                  y1="491.25"
+                                  x2="1630"
+                                  y2="491.25"
+                                  fill="transparent"
+                                  shape-rendering="crispEdges"
+                                  stroke="#653991"
+                                  stroke-width="1"
+                                  stroke-opacity="1"
+                                ></line>
+                                <line class="visx-line" x1="0" y1="310" x2="1630" y2="310" fill="transparent" shape-rendering="crispEdges" stroke="#653991" stroke-width="1" stroke-opacity="1"></line>
+                                <line
+                                  class="visx-line"
+                                  x1="0"
+                                  y1="128.75"
+                                  x2="1630"
+                                  y2="128.75"
+                                  fill="transparent"
+                                  shape-rendering="crispEdges"
+                                  stroke="#653991"
+                                  stroke-width="1"
+                                  stroke-opacity="1"
+                                ></line>
+                              </g>
+                              <g class="visx-group visx-columns" transform="translate(0, 20)">
+                                <line class="visx-line" x1="885" y1="0" x2="885" y2="580" fill="transparent" shape-rendering="crispEdges" stroke="#653991" stroke-width="1" stroke-opacity="1"></line>
+                              </g>
+                              <g class="visx-group visx-axis visx-axis-bottom" transform="translate(0, 600)">
+                                <g class="visx-group visx-axis-tick" transform="translate(0, 0)">
+                                  <line class="visx-line" x1="885" y1="0" x2="885" y2="8" fill="transparent" shape-rendering="crispEdges" stroke="#222" stroke-width="1" stroke-linecap="square"></line>
+                                  <text x="885" y="20" transform="rotate(-45 885 20)"><tspan x="885" dy="0em" text-anchor="middle" fill="var(--text-clr)" font-size="12">Server</tspan></text>
+                                </g>
+                                <line class="visx-line visx-axis-line" x1="70.5" y1="0" x2="1700.5" y2="0" fill="transparent" shape-rendering="crispEdges" stroke="none" stroke-width="1"></line>
+                              </g>
+                              <g class="visx-group visx-axis visx-axis-left" transform="translate(70, 0)">
+                                <g class="visx-group visx-axis-tick" transform="translate(0, 0)">
+                                  <line
+                                    class="visx-line"
+                                    x1="0"
+                                    y1="491.25"
+                                    x2="-8"
+                                    y2="491.25"
+                                    fill="transparent"
+                                    shape-rendering="crispEdges"
+                                    stroke="#222"
+                                    stroke-width="1"
+                                    stroke-linecap="square"
+                                  ></line>
+                                  <text x="-8" y="491.25" transform="rotate(-45 -8 491.25)"><tspan x="-8" dy="0em" text-anchor="middle" fill="var(--text-clr)" font-size="12">PFI or PCI</tspan></text>
+                                </g>
+                                <g class="visx-group visx-axis-tick" transform="translate(0, 0)">
+                                  <line class="visx-line" x1="0" y1="310" x2="-8" y2="310" fill="transparent" shape-rendering="crispEdges" stroke="#222" stroke-width="1" stroke-linecap="square"></line>
+                                  <text x="-8" y="310" transform="rotate(-45 -8 310)"><tspan x="-8" dy="0em" text-anchor="middle" fill="var(--text-clr)" font-size="12">PHI</tspan></text>
+                                </g>
+                                <g class="visx-group visx-axis-tick" transform="translate(0, 0)">
+                                  <line
+                                    class="visx-line"
+                                    x1="0"
+                                    y1="128.75"
+                                    x2="-8"
+                                    y2="128.75"
+                                    fill="transparent"
+                                    shape-rendering="crispEdges"
+                                    stroke="#222"
+                                    stroke-width="1"
+                                    stroke-linecap="square"
+                                  ></line>
+                                  <text x="-8" y="128.75" transform="rotate(-45 -8 128.75)">
+                                    <tspan x="-8" dy="0em" text-anchor="middle" fill="var(--text-clr)" font-size="12">Corporate</tspan>
+                                    <tspan x="-8" dy="1.2em" text-anchor="middle" fill="var(--text-clr)" font-size="12">Operational Impact</tspan>
+                                  </text>
+                                </g>
+                                <line class="visx-line visx-axis-line" x1="0" y1="600.5" x2="0" y2="20.5" fill="transparent" shape-rendering="crispEdges" stroke="none" stroke-width="1"></line>
+                              </g>
+                              <g><circle class="visx-circle" cx="885" cy="491.25" r="20" fill="#68A97F"></circle></g>
+                              <g><circle class="visx-circle" cx="885" cy="128.75" r="5.153919654355864" fill="#68A97F"></circle></g>
+                              <g><circle class="visx-circle" cx="885" cy="310" r="10.577873790037804" fill="#68A97F"></circle></g>
+                            </g>
+                          </svg>
                         </div>
                       </div>
                     </div>
-                    <div class="qai-overflow-auto">
-                      <svg width="1720" height="700">
-                        <g class="visx-group" transform="translate(0, 0)">
-                          <g class="visx-group visx-rows" transform="translate(70, 0)">
-                            <line
-                              class="visx-line"
-                              x1="0"
-                              y1="491.25"
-                              x2="1630"
-                              y2="491.25"
-                              fill="transparent"
-                              shape-rendering="crispEdges"
-                              stroke="#653991"
-                              stroke-width="1"
-                              stroke-opacity="1"
-                            ></line>
-                            <line class="visx-line" x1="0" y1="310" x2="1630" y2="310" fill="transparent" shape-rendering="crispEdges" stroke="#653991" stroke-width="1" stroke-opacity="1"></line>
-                            <line
-                              class="visx-line"
-                              x1="0"
-                              y1="128.75"
-                              x2="1630"
-                              y2="128.75"
-                              fill="transparent"
-                              shape-rendering="crispEdges"
-                              stroke="#653991"
-                              stroke-width="1"
-                              stroke-opacity="1"
-                            ></line>
-                          </g>
-                          <g class="visx-group visx-columns" transform="translate(0, 20)">
-                            <line class="visx-line" x1="885" y1="0" x2="885" y2="580" fill="transparent" shape-rendering="crispEdges" stroke="#653991" stroke-width="1" stroke-opacity="1"></line>
-                          </g>
-                          <g class="visx-group visx-axis visx-axis-bottom" transform="translate(0, 600)">
-                            <g class="visx-group visx-axis-tick" transform="translate(0, 0)">
-                              <line class="visx-line" x1="885" y1="0" x2="885" y2="8" fill="transparent" shape-rendering="crispEdges" stroke="#222" stroke-width="1" stroke-linecap="square"></line>
-                              <text x="885" y="20" transform="rotate(-45 885 20)"><tspan x="885" dy="0em" text-anchor="middle" fill="var(--text-clr)" font-size="12">Server</tspan></text>
-                            </g>
-                            <line class="visx-line visx-axis-line" x1="70.5" y1="0" x2="1700.5" y2="0" fill="transparent" shape-rendering="crispEdges" stroke="none" stroke-width="1"></line>
-                          </g>
-                          <g class="visx-group visx-axis visx-axis-left" transform="translate(70, 0)">
-                            <g class="visx-group visx-axis-tick" transform="translate(0, 0)">
-                              <line
-                                class="visx-line"
-                                x1="0"
-                                y1="491.25"
-                                x2="-8"
-                                y2="491.25"
-                                fill="transparent"
-                                shape-rendering="crispEdges"
-                                stroke="#222"
-                                stroke-width="1"
-                                stroke-linecap="square"
-                              ></line>
-                              <text x="-8" y="491.25" transform="rotate(-45 -8 491.25)"><tspan x="-8" dy="0em" text-anchor="middle" fill="var(--text-clr)" font-size="12">PFI or PCI</tspan></text>
-                            </g>
-                            <g class="visx-group visx-axis-tick" transform="translate(0, 0)">
-                              <line class="visx-line" x1="0" y1="310" x2="-8" y2="310" fill="transparent" shape-rendering="crispEdges" stroke="#222" stroke-width="1" stroke-linecap="square"></line>
-                              <text x="-8" y="310" transform="rotate(-45 -8 310)"><tspan x="-8" dy="0em" text-anchor="middle" fill="var(--text-clr)" font-size="12">PHI</tspan></text>
-                            </g>
-                            <g class="visx-group visx-axis-tick" transform="translate(0, 0)">
-                              <line
-                                class="visx-line"
-                                x1="0"
-                                y1="128.75"
-                                x2="-8"
-                                y2="128.75"
-                                fill="transparent"
-                                shape-rendering="crispEdges"
-                                stroke="#222"
-                                stroke-width="1"
-                                stroke-linecap="square"
-                              ></line>
-                              <text x="-8" y="128.75" transform="rotate(-45 -8 128.75)">
-                                <tspan x="-8" dy="0em" text-anchor="middle" fill="var(--text-clr)" font-size="12">Corporate</tspan>
-                                <tspan x="-8" dy="1.2em" text-anchor="middle" fill="var(--text-clr)" font-size="12">Operational Impact</tspan>
-                              </text>
-                            </g>
-                            <line class="visx-line visx-axis-line" x1="0" y1="600.5" x2="0" y2="20.5" fill="transparent" shape-rendering="crispEdges" stroke="none" stroke-width="1"></line>
-                          </g>
-                          <g><circle class="visx-circle" cx="885" cy="491.25" r="20" fill="#68A97F"></circle></g>
-                          <g><circle class="visx-circle" cx="885" cy="128.75" r="5.153919654355864" fill="#68A97F"></circle></g>
-                          <g><circle class="visx-circle" cx="885" cy="310" r="10.577873790037804" fill="#68A97F"></circle></g>
-                        </g>
-                      </svg>
-                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+         
         </section>
       </main>
     </div>

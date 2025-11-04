@@ -6818,6 +6818,176 @@ header.QuHeader.fixed {
     left: 0;
     top: 0;
 }
+
+/* Chart scroll containers for mobile responsiveness */
+.chart-scroll-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+}
+
+.chart-scroll-wrapper::-webkit-scrollbar {
+    height: 8px;
+}
+
+.chart-scroll-wrapper::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.chart-scroll-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+}
+
+.chart-scroll-wrapper::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* Override overflow: hidden on child containers */
+.chart-scroll-wrapper .qai-overflow-hidden {
+    overflow: visible !important;
+}
+
+.chart-scroll-wrapper > div {
+    overflow: visible !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.chart-scroll-wrapper > div > div[style*="overflow: hidden"] {
+    overflow: visible !important;
+}
+
+/* Ensure content inside scroll wrapper can scroll */
+.chart-scroll-wrapper .geoChartContainer {
+    min-width: 800px;
+    width: 800px !important;
+    max-width: 800px !important;
+}
+
+@media (min-width: 768px) {
+    .chart-scroll-wrapper {
+        overflow-x: visible !important;
+    }
+    
+    .chart-scroll-wrapper .geoChartContainer {
+        min-width: auto;
+    }
+}
+
+@media (max-width: 767px) {
+    .chart-scroll-wrapper {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    .chart-scroll-wrapper > div {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    .chart-scroll-wrapper .geoChartContainer {
+        min-width: 800px !important;
+        width: 800px !important;
+        max-width: 800px !important;
+    }
+    
+    .chart-scroll-wrapper svg {
+        width: 800px !important;
+        min-width: 800px !important;
+        max-width: 800px !important;
+    }
+}
+
+/* Geography Legend and Map Spacing */
+.geography-legend-container {
+    width: 100%;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+    z-index: 10;
+    position: relative;
+}
+
+.geography-legend-container .minor-card {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.geography-map-wrapper {
+    width: 100%;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    position: relative;
+    z-index: 1;
+    clear: both;
+}
+
+/* Ensure consistent spacing between legend and map */
+.chart-scroll-wrapper > div[style*="flex-direction: column"] {
+    gap: 1rem !important;
+}
+
+.chart-scroll-wrapper > div[style*="flex-direction: column"] > div:first-child {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.chart-scroll-wrapper > div[style*="flex-direction: column"] > div:last-child {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+/* Cyber Incident Trend - Incident Type Legend Positioning */
+/* On large screens (≥1024px) - legend on right side */
+@media (min-width: 1024px) {
+    .cyber-incident-trend-grid {
+        display: grid !important;
+        grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
+        gap: 1rem !important;
+    }
+    
+    .cyber-incident-trend-grid .trend-chart-parent {
+        grid-column: span 9 / span 9 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    .cyber-incident-trend-grid .incident-type-legend-container {
+        grid-column: span 3 / span 3 !important;
+        display: flex !important;
+        flex-direction: column;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+}
+
+/* On mobile screens (<1024px) - legend below chart (stacked) */
+@media (max-width: 1023px) {
+    .qai-grid-cols-12 {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .qai-grid-cols-12 .trend-chart-parent {
+        grid-column: span 1 / span 1 !important;
+        width: 100%;
+    }
+    
+    .qai-grid-cols-12 .incident-type-legend-container {
+        grid-column: span 1 / span 1 !important;
+        width: 100%;
+        margin-top: 0;
+    }
+    
+    .incident-type-legend-container {
+        margin-top: 1rem !important;
+    }
+}
 </style>
 </head>
 
@@ -7101,17 +7271,22 @@ header.QuHeader.fixed {
               <div class="qai-w-full xl:qai-w-1/2">
                 <div class="qai-w-full qai-flexcol qai-gap-2 qai-h-full">
                   <div class="qai-flex qai-flex-col qai-gap-2">
-                    <div class="qai-flex qai-justify-between qai-items-center">
-                      <div class="qai-flex-1">
+                    <div class="qai-flex qai-flex-col md:qai-flex-row qai-justify-between md:qai-items-center qai-items-start qai-w-full qai-gap-3 md:qai-gap-0">
+                      <div class="qai-flex-shrink-0">
                         <div class="qai-flex qai-items-center qai-gap-2 qai-text-lg md:qai-text-xl">
                           <div class="qai-flex qai-items-center qai-gap-2"><span class="qai-align-middle gradient-text">Industry Losses by Incident Type</span></div>
                         </div>
                       </div>
                       <div class="qai-flex-shrink-0">
-                        <div class="qai-flex qai-flex-row qai-gap-2 qai-items-center qai-flex-wrap"><span class="qai-whitespace-nowrap qai-text-sm">View By:</span>
+                        <div class="qai-flex qai-flex-row qai-gap-2 qai-items-center qai-flex-wrap">
+                          <span class="qai-whitespace-nowrap qai-text-sm">View By:</span>
                           <div class="qai-flex qai-flex-row qai-gap-2">
-                            <div class="qai-p-[1px] qai-rounded-lg " style="background-image: var(--btn-border-gradient);"><button class="qai-btn qai-w-full qai-btn-primary-sm qai-rounded-lg"><span class="qai-flex-center qai-gap-2">Total Loss Amount</span></button></div>
-                            <div class="qai-p-[1px] qai-rounded-lg " style="background-image: var(--btn-border-gradient);"><button class="qai-btn qai-w-full qai-btn-secondary-sm qai-rounded-lg"><span class="qai-flex-center qai-gap-2">Total Instances</span></button></div>
+                            <div class="qai-p-[1px] qai-rounded-lg" style="background-image: var(--btn-border-gradient)">
+                              <button class="qai-btn qai-w-full qai-btn-primary-sm qai-rounded-lg"><span class="qai-flex-center qai-gap-2">Total Loss Amount</span></button>
+                            </div>
+                            <div class="qai-p-[1px] qai-rounded-lg" style="background-image: var(--btn-border-gradient)">
+                              <button class="qai-btn qai-w-full qai-btn-secondary-sm qai-rounded-lg"><span class="qai-flex-center qai-gap-2">Total Instances</span></button>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -7123,7 +7298,8 @@ header.QuHeader.fixed {
                         <p>The below visualization provides an overview of incidents types driving Financial losses with the industry.</p>
                         <div class="qai-w-full qai-flex qai-justify-center qai-grow">
                           <div class="jsx-8c7d286568fed9c8 qai-flex qai-flex-col md:qai-flex-row qai-flex-wrap qai-items-center qai-justify-center qai-w-full qai-relative">
-                            <div class="jsx-8c7d286568fed9c8 qai-w-full md:qai-w-2/3 qai-chart-container"><svg width="580" height="580" class="jsx-8c7d286568fed9c8">
+                            <div class="jsx-8c7d286568fed9c8 qai-w-full md:qai-w-2/3 qai-chart-container">
+                              <svg viewBox="0 0 580 580" class="jsx-8c7d286568fed9c8 qai-w-full qai-h-auto qai-max-w-[580px]">
                                 <defs>
                                   <linearGradient id="radial-bars-green" x1="0" y1="0" x2="0" y2="1">
                                     <stop offset="0%" stop-color="#42E695" stop-opacity="1"></stop>
@@ -7275,20 +7451,25 @@ header.QuHeader.fixed {
               </div>
             </div>
           </div>
-          <div class="qai-grid qai-grid-cols-2 qai-gap-4">
+          <div class="qai-grid qai-grid-cols-1 lg:qai-grid-cols-2 qai-gap-4">
             <div class="qai-w-full qai-flexcol qai-gap-2 qai-h-full">
               <div class="qai-flex qai-flex-col qai-gap-2">
-                <div class="qai-flex qai-justify-between qai-items-center">
-                  <div class="qai-flex-1">
+                <div class="qai-flex qai-flex-col md:qai-flex-row qai-justify-between md:qai-items-center qai-items-start qai-w-full qai-gap-3 md:qai-gap-0">
+                  <div class="qai-flex-shrink-0">
                     <div class="qai-flex qai-items-center qai-gap-2 qai-text-lg md:qai-text-xl">
                       <div class="qai-flex qai-items-center qai-gap-2"><span class="qai-align-middle gradient-text">Industry Losses by Geography</span></div>
                     </div>
                   </div>
                   <div class="qai-flex-shrink-0">
-                    <div class="qai-flex qai-flex-row qai-gap-2 qai-items-center qai-flex-wrap"><span class="qai-whitespace-nowrap qai-text-sm">View By:</span>
+                    <div class="qai-flex qai-flex-row qai-gap-2 qai-items-center qai-flex-wrap">
+                      <span class="qai-whitespace-nowrap qai-text-sm">View By:</span>
                       <div class="qai-flex qai-flex-row qai-gap-2">
-                        <div class="qai-p-[1px] qai-rounded-lg " style="background-image: var(--btn-border-gradient);"><button class="qai-btn qai-w-full qai-btn-primary-sm qai-rounded-lg"><span class="qai-flex-center qai-gap-2">Total Loss Amount</span></button></div>
-                        <div class="qai-p-[1px] qai-rounded-lg " style="background-image: var(--btn-border-gradient);"><button class="qai-btn qai-w-full qai-btn-secondary-sm qai-rounded-lg"><span class="qai-flex-center qai-gap-2">Total Instances</span></button></div>
+                        <div class="qai-p-[1px] qai-rounded-lg" style="background-image: var(--btn-border-gradient)">
+                          <button class="qai-btn qai-w-full qai-btn-primary-sm qai-rounded-lg"><span class="qai-flex-center qai-gap-2">Total Loss Amount</span></button>
+                        </div>
+                        <div class="qai-p-[1px] qai-rounded-lg" style="background-image: var(--btn-border-gradient)">
+                          <button class="qai-btn qai-w-full qai-btn-secondary-sm qai-rounded-lg"><span class="qai-flex-center qai-gap-2">Total Instances</span></button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -7296,13 +7477,13 @@ header.QuHeader.fixed {
               </div>
               <div class="qai-p-[1px] qai-rounded-2xl qai-flex qai-grow qai-w-full" style="background-image: var(--card-b-gradient);">
                 <div class="qai-rounded-lg qai-flex qai-grow minor-card-gradient-2">
-                  <div class="qai-w-full qai-flexcol qai-p-4">
-                    <p>This visualization shows geographical distribution of financial impact by loss amount or incident count.</p>
-                    <div class="qai-w-full qai-flex qai-justify-center">
-                      <div class="qai-w-full sm:qai-w-4/5 md:qai-w-3/4 lg:qai-w-4/5 xl:qai-w-full qai-overflow-hidden">
-                        <div class="qai-flex qai-flex-col qai-gap-4">
-                          <div class="qai-flex qai-w-full qai-items-center qai-justify-end">
-                            <div class="minor-card qai-p-4 qai-flex qai-gap-4">
+                  <div class="qai-w-full qai-flexcol qai-p-4" style="width: 100%; max-width: 100%; overflow: hidden;">
+                    <p class="qai-mb-4">This visualization shows geographical distribution of financial impact by loss amount or incident count.</p>
+                    <div class="qai-flex qai-flex-col qai-gap-4" style="width: 100%; max-width: 100%; overflow: hidden;">
+                      <div class="chart-scroll-wrapper" style="width: 100%; max-width: 100%;">
+                        <div style="min-width: 800px; width: max-content; display: flex; flex-direction: column; gap: 1rem;">
+                          <div class="qai-flex qai-w-full qai-items-center qai-justify-end geography-legend-container">
+                            <div class="minor-card qai-p-4 qai-flex qai-gap-4" style="flex-shrink: 0;">
                               <div class="qai-flex qai-flex-col qai-items-center qai-mb-2">
                                 <div style="width: 12px; height: 12px; background-color: rgb(104, 169, 127); margin-right: 8px; border-radius: 12px;"></div>
                                 <div>Low</div>
@@ -7330,9 +7511,10 @@ header.QuHeader.fixed {
                               </div>
                             </div>
                           </div>
-                          <div class="qai-rounded-lg qai-p-4 qai-overflow-hidden qai-shadow-lg  qai-h-auto qai-sm:qai-h-[500px] qai-w-full" style="opacity: 1; transform: none;">
-                            <div class="qai-h-[300px] sm:qai-h-[400px] ">
-                              <div class="geoChartContainer"><svg viewBox="0 0 800 600" class="rsm-svg geoMap" data-tooltip-id="geography-tooltip">
+                          <div class="qai-rounded-lg qai-p-4 qai-shadow-lg qai-h-auto qai-sm:qai-h-[500px] geography-map-wrapper" style="overflow: visible; width: 100%; max-width: 100%;">
+                            <div class="qai-h-[300px] sm:qai-h-[400px] lg:qai-h-[500px]" style="position: relative; overflow: visible; width: 100%; max-width: 100%;">
+                              <div class="geoChartContainer" style="width: 800px; max-width: 800px; height: 100%; display: flex; justify-content: center; align-items: center;">
+                                <svg viewBox="0 0 800 600" width="800" height="600" preserveAspectRatio="xMidYMid meet" style="display: block; width: 800px; max-width: 800px; height: auto; flex-shrink: 0;" class="rsm-svg geoMap" data-tooltip-id="geography-tooltip">
                                   <g style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
                                     <rect width="800" height="600" fill="transparent"></rect>
                                     <g transform="translate(152.743784913068 -13.940267977202552) scale(0.75)" class="rsm-zoomable-group undefined">
@@ -7741,29 +7923,40 @@ header.QuHeader.fixed {
             </div>
             <div class="qai-w-full qai-flexcol qai-gap-2 qai-h-full">
               <div class="qai-flex qai-flex-col qai-gap-2">
-                <div class="qai-flex qai-justify-between qai-items-center">
-                  <div class="qai-flex-1">
+                <div class="qai-flex qai-flex-col md:qai-flex-row qai-justify-between md:qai-items-center qai-items-start qai-w-full qai-gap-3 md:qai-gap-0">
+                  <div class="qai-flex-shrink-0">
                     <div class="qai-flex qai-items-center qai-gap-2 qai-text-lg md:qai-text-xl">
                       <div class="qai-flex qai-items-center qai-gap-2"><span class="qai-align-middle gradient-text">Cyber Incident Trend</span></div>
                     </div>
                   </div>
                   <div class="qai-flex-shrink-0">
-                    <div class="qai-flex qai-gap-2 qai-items-center qai-text-sm">View By:<div class="qai-p-[1px] qai-rounded-lg " style="background-image: var(--btn-border-gradient);"><button class="qai-btn qai-w-full qai-btn-primary-sm qai-rounded-lg"><span class="qai-flex-center qai-gap-2">Total Loss Amount</span></button></div>
-                      <div class="qai-p-[1px] qai-rounded-lg " style="background-image: var(--btn-border-gradient);"><button class="qai-btn qai-w-full qai-btn-secondary-sm qai-rounded-lg"><span class="qai-flex-center qai-gap-2">Total Instances</span></button></div>
+                    <div class="qai-flex qai-flex-row qai-gap-2 qai-items-center qai-flex-wrap">
+                      <span class="qai-whitespace-nowrap qai-text-sm">View By:</span>
+                      <div class="qai-flex qai-flex-row qai-gap-2">
+                        <div class="qai-p-[1px] qai-rounded-lg" style="background-image: var(--btn-border-gradient)">
+                          <button class="qai-btn qai-w-full qai-btn-primary-sm qai-rounded-lg"><span class="qai-flex-center qai-gap-2">Total Loss Amount</span></button>
+                        </div>
+                        <div class="qai-p-[1px] qai-rounded-lg" style="background-image: var(--btn-border-gradient)">
+                          <button class="qai-btn qai-w-full qai-btn-secondary-sm qai-rounded-lg"><span class="qai-flex-center qai-gap-2">Total Instances</span></button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="qai-p-[1px] qai-rounded-2xl qai-flex qai-grow qai-w-full" style="background-image: var(--card-b-gradient);">
                 <div class="qai-rounded-lg qai-flex qai-grow minor-card-gradient-2">
-                  <div class="qai-grid qai-grid-cols-1 lg:qai-grid-cols-8 qai-gap-4 qai-p-4 qai-w-full">
-                    <div class="qai-col-span-6 trend-chart-parent">
-                      <p>This visualization shows the trend of total loss amount and the number of incidents by cyber loss types.</p>
-                      <div class="qai-rounded-lg qai-p-4 qai-overflow-hidden qai-shadow-lg  qai-h-auto qai-sm:qai-h-[500px] qai-w-full" style="opacity: 1; transform: none;">
-                        <div class=" " style="height: 500px;">
+                  <div class="qai-grid qai-grid-cols-1 lg:qai-grid-cols-12 qai-gap-4 qai-p-4 qai-w-full cyber-incident-trend-grid">
+                    <div class="qai-col-span-1 lg:qai-col-span-9 trend-chart-parent">
+                      <p class="qai-mb-4">This visualization shows the trend of total loss amount and the number of incidents by cyber loss types.</p>
+                      <div class="qai-rounded-lg qai-p-4 qai-overflow-hidden qai-shadow-lg qai-h-auto qai-w-full">
+                        <div class="qai-h-[300px] sm:qai-h-[400px] lg:qai-h-[500px]">
                           <div class="stacked-bar-chart">
-                            <div class="recharts-responsive-container" style="width: 100%; height: 500px; min-width: 0px;">
-                              <div class="recharts-wrapper" style="position: relative; cursor: default; width: 100%; height: 100%; max-height: 500px; max-width: 609px;"><svg class="recharts-surface" width="609" height="500" viewBox="0 0 609 500" style="width: 100%; height: 100%;">
+                          <div class="recharts-responsive-container" style="width: 100%; height: 100%; min-width: 0px;">
+                            <div class="recharts-wrapper"
+                              style="position: relative; cursor: default; width: 100%; height: 100%; max-height: 500px;">
+                              <svg class="recharts-surface" width="609" height="500" viewBox="0 0 609 500"
+                                style="width: 100%; height: 100%">
                                   <title></title>
                                   <desc></desc>
                                   <defs>
@@ -8048,13 +8241,15 @@ header.QuHeader.fixed {
                         </div>
                       </div>
                     </div>
-                    <div class="qai-col-span-2 qai-flex qai-flex-col qai-gap-4">
+                    <div class="qai-col-span-1 lg:qai-col-span-3 qai-flex qai-flex-col qai-gap-4 incident-type-legend-container">
                       <div class="qai-flex qai-justify-end">
-                        <div class="qai-p-[1px] qai-rounded-lg " style="background-image: var(--btn-border-gradient);"><button class="qai-btn qai-w-full qai-btn-secondary-sm qai-rounded-lg"><span class="qai-flex-center qai-gap-2">Reset</span></button></div>
+                        <div class="qai-p-[1px] qai-rounded-lg" style="background-image: var(--btn-border-gradient)">
+                          <button class="qai-btn qai-w-full qai-btn-secondary-sm qai-rounded-lg"><span class="qai-flex-center qai-gap-2">Reset</span></button>
+                        </div>
                       </div>
                       <div class="minor-card qai-flex-wrap qai-gap-2 qai-p-4">
                         <h3 class="qai-text-sm qai-font-bold qai-text-center qai-col-span-full qai-mb-2">Incident Type</h3>
-                        <div class="qai-grid qai-grid-cols-1   qai-gap-2 qai-max-h-[350px] qai-overflow-y-auto">
+                        <div class="qai-grid qai-grid-cols-1 qai-gap-2 qai-max-h-[400px] qai-overflow-y-auto">
                           <div class="qai-flex qai-w-full">
                             <div class="qai-p-[1px] qai-rounded-lg qai-w-full" style="background-image: var(--btn-border-gradient);"><button class="qai-btn qai-w-full qai-btn-secondary-sm qai-rounded-lg"><span class="qai-flex-center qai-gap-2">
                                   <div class="qai-flex qai-items-center qai-gap-2"><span class="qai-flex qai-rounded-full qai-min-w-[10px] qai-h-[10px]" style="background-color: rgb(247, 37, 133);"></span><span class="qai-text-xs">Accidental Data Disclosure</span></div>
@@ -8432,8 +8627,8 @@ header.QuHeader.fixed {
                   </div>
                   <div class="qai-w-full qai-flexcol qai-gap-2 qai-h-full qai-flex-1">
                     <div class="qai-flex qai-flex-col qai-gap-2">
-                      <div class="qai-flex qai-justify-between qai-items-center">
-                        <div class="qai-flex-1">
+                      <div class="qai-flex qai-flex-col md:qai-flex-row qai-justify-between md:qai-items-center qai-items-start qai-w-full qai-gap-3 md:qai-gap-0">
+                        <div class="qai-flex-shrink-0">
                           <div class="qai-flex qai-items-center qai-gap-2 qai-text-lg md:qai-text-xl">
                             <div class="qai-flex qai-items-center qai-gap-2"><span class="qai-align-middle gradient-text">Threat Actors Cloud</span><span role="img" aria-label="info-circle" aria-describedby="«r4h»" class="anticon anticon-info-circle  qai-text-base" style="color: var(--text-clr);"><svg viewBox="64 64 896 896" focusable="false" data-icon="info-circle" width="1em" height="1em" fill="currentColor" aria-hidden="true">
                                   <path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"></path>
@@ -8442,8 +8637,16 @@ header.QuHeader.fixed {
                           </div>
                         </div>
                         <div class="qai-flex-shrink-0">
-                          <div class="qai-flex qai-gap-2 qai-items-center qai-text-sm">View By:<div class="qai-p-[1px] qai-rounded-lg " style="background-image: var(--btn-border-gradient);"><button class="qai-btn qai-w-full qai-btn-primary-sm qai-rounded-lg"><span class="qai-flex-center qai-gap-2">Total Loss Amount</span></button></div>
-                            <div class="qai-p-[1px] qai-rounded-lg " style="background-image: var(--btn-border-gradient);"><button class="qai-btn qai-w-full qai-btn-secondary-sm qai-rounded-lg"><span class="qai-flex-center qai-gap-2">Total Instances</span></button></div>
+                          <div class="qai-flex qai-flex-row qai-gap-2 qai-items-center qai-flex-wrap">
+                            <span class="qai-whitespace-nowrap qai-text-sm">View By:</span>
+                            <div class="qai-flex qai-flex-row qai-gap-2">
+                              <div class="qai-p-[1px] qai-rounded-lg" style="background-image: var(--btn-border-gradient)">
+                                <button class="qai-btn qai-w-full qai-btn-primary-sm qai-rounded-lg"><span class="qai-flex-center qai-gap-2">Total Loss Amount</span></button>
+                              </div>
+                              <div class="qai-p-[1px] qai-rounded-lg" style="background-image: var(--btn-border-gradient)">
+                                <button class="qai-btn qai-w-full qai-btn-secondary-sm qai-rounded-lg"><span class="qai-flex-center qai-gap-2">Total Instances</span></button>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -8480,7 +8683,7 @@ header.QuHeader.fixed {
               </div>
             </div>
           </div>
-          <div class="qai-grid qai-grid-cols-2 qai-gap-4">
+          <div class="qai-grid qai-grid-cols-1 lg:qai-grid-cols-2 qai-gap-4">
             <div class="qai-w-full qai-flexcol qai-gap-2 qai-h-full">
               <div class="qai-flex qai-flex-col qai-gap-2">
                 <div class="qai-flex qai-justify-between qai-items-center">
@@ -8495,9 +8698,10 @@ header.QuHeader.fixed {
                 <div class="qai-rounded-lg qai-flex qai-grow minor-card-gradient-2">
                   <div class="qai-grid qai-grid-cols-1 qai-p-4 qai-w-full">
                     <p>The analysis below summarizes the attack vectors used by different threat actors. The box plot shows the range of loss amounts associated with each attack vector, including the median loss, overall spread, and any outliers. This visualization below provides comparison of loss amounts and incidents across different attack methods.</p>
-                    <div class="qai-rounded-lg qai-p-4 qai-overflow-hidden qai-shadow-lg  qai-h-auto qai-sm:qai-h-[500px] qai-w-full" style="opacity: 1; transform: none;">
-                      <div class="qai-h-[300px] sm:qai-h-[400px] ">
-                        <div style="width: 100%; height: 100%; margin-top: 20px;"> <svg width="828" height="700">
+                    <div class="qai-rounded-lg qai-p-4 qai-shadow-lg qai-h-auto qai-sm:qai-h-[500px] qai-w-full" style="opacity: 1; transform: none; overflow-x: auto; overflow-y: hidden;">
+                      <div class="qai-h-[300px] sm:qai-h-[400px]" style="overflow: visible">
+                        <div style="width: 100%; height: 100%; margin-top: 20px; overflow: visible">
+                          <svg width="828" height="700" style="min-width: 828px; height: auto; display: block">
                             <defs>
                               <linearGradient id="boxplot-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
                                 <stop offset="0%" stop-color="#4878D7" stop-opacity="0.8"></stop>
